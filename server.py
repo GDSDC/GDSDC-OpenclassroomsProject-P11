@@ -88,8 +88,8 @@ def logout():
 
 # CUSTOM TEMPLATES FILTERS
 @app.template_filter('to_date')
-def to_date_filer(dateframe):
-    return datetime.fromisoformat(dateframe)
+def to_date_filer(iso_date):
+    return datetime.fromisoformat(iso_date)
 
 
 @app.template_filter('is_future')
