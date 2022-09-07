@@ -1,8 +1,7 @@
 from random import choice
 from uuid import uuid4
 
-from server import clubs
-
+from server import clubs, competitions
 
 # ------- FUNCTIONAL TESTS ------------------
 def test_unknown_email_login(client):
@@ -94,3 +93,65 @@ def test_redeemed_points_correctly_deducted_from_club_total(client, valid_club, 
     # THEN
     # points well updated
     assert int([c for c in clubs if c['name'] == valid_club['name']][0]['points']) == club_initial_points - int(places)
+
+
+def test_booking_more_than_12_places(client, new_club_with_20_points, valid_competition):
+    """Function that tests if we receive an error message 400 when purchasing more 12 places"""
+
+    # GIVEN
+    # a club and a competition
+    new_club_with_20_points = new_club_with_20_points
+    valid_competition = valid_competition
+    places = '15'
+
+    # WHEN
+    # purchasing more places than available points
+    response = client.post('/purchasePlaces', data={'club': new_club_with_20_points['name'],
+                                                    'competition': valid_competition['name'],
+                                                    'places': places})
+
+    # THEN
+    # error response status
+    assert response.status_code == 400
+
+
+def test_booking_less_than_12_places(client, new_club_with_20_points, valid_competition):
+    """Function that tests if we receive a valid message 200 when purchasing less 12 places"""
+
+    # GIVEN
+    # a club and a competition
+    new_club_with_20_points = new_club_with_20_points
+    valid_competition = valid_competition
+    places = '10'
+
+    # WHEN
+    # purchasing more places than available points
+    response = client.post('/purchasePlaces', data={'club': new_club_with_20_points['name'],
+                                                    'competition': valid_competition['name'],
+                                                    'places': str(places)})
+
+    # THEN
+    # valid response status
+    assert response.status_code == 200
+
+
+def test_places_correctly_deducted_from_competition(client, new_club_with_20_points, valid_competition):
+    """Function that test if places are correctly deducted from the competition when purchasing"""
+
+    # GIVEN
+    # a club and a competition and places
+    new_club_with_20_points = new_club_with_20_points
+    valid_competition = valid_competition
+    places = '10'
+    competition_initial_number_of_places = int(valid_competition['numberOfPlaces'])
+
+    # WHEN
+    # purchasing places
+    response = client.post('/purchasePlaces', data={'club': new_club_with_20_points['name'],
+                                                    'competition': valid_competition['name'],
+                                                    'places': places})
+
+    # THEN
+    # places well deducted
+    assert int([c for c in competitions if c['name'] == valid_competition['name']][0]['numberOfPlaces']) \
+           == competition_initial_number_of_places - int(places)
