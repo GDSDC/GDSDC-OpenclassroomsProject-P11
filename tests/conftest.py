@@ -1,6 +1,6 @@
 import pytest
 from random import choice
-from server import app, loadClubs
+from server import app, loadClubs, loadCompetitions
 
 
 @pytest.fixture
@@ -19,3 +19,9 @@ def client():
 def valid_club():
     clubs = loadClubs()
     return choice(clubs)
+
+
+@pytest.fixture
+def valid_competition():
+    competitions = loadCompetitions()
+    return choice(competitions)

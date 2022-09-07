@@ -1,6 +1,8 @@
 from random import choice
 from uuid import uuid4
 
+from server import clubs
+
 
 # ------- FUNCTIONAL TESTS ------------------
 def test_unknown_email_login(client):
@@ -32,3 +34,63 @@ def test_known_email_login(client, valid_club):
 
     # THEN
     assert response.status_code == 200
+
+
+def test_error_status_when_purchase_more_than_available(client, valid_club, valid_competition):
+    """Function that tests if we receive an error message 400 when purchasing more than available points of the club"""
+
+    # GIVEN
+    # a club and a competition
+    club = valid_club
+    competition = valid_competition
+
+    # WHEN
+    # purchasing more places than available points
+    response = client.post('/purchasePlaces', data={'club': club['name'],
+                                                    'competition': competition['name'],
+                                                    'places': str(int(club['points']) + 5)})
+
+    # THEN
+    # error response status
+    assert response.status_code == 400
+
+
+def test_valid_status_when_purchase_less_than_available(client, valid_club, valid_competition):
+    """Function that tests if we receive a valid message 200 when purchasing less than available points of the club"""
+
+    # GIVEN
+    # a club and a competition and places
+    club = valid_club
+    competition = valid_competition
+    places = '1' if int(club['points']) > 1 else '0'
+
+    # WHEN
+    # purchasing less places than available points
+    response = client.post('/purchasePlaces', data={'club': club['name'],
+                                                    'competition': competition['name'],
+                                                    'places': places})
+
+    # THEN
+    # valid response status
+    assert response.status_code == 200
+
+
+def test_redeemed_points_correctly_deducted_from_club_total(client, valid_club, valid_competition):
+    """Function that test if redeemed points are correctly deducted from the club's total"""
+
+    # GIVEN
+    # a club and a competition and places
+    valid_club = valid_club
+    valid_competition = valid_competition
+    places = '1' if int(valid_club['points']) > 1 else '0'
+    club_initial_points = int(valid_club['points'])
+
+    # WHEN
+    # purchasing places
+    response = client.post('/purchasePlaces', data={'club': valid_club['name'],
+                                                    'competition': valid_competition['name'],
+                                                    'places': places})
+
+    # THEN
+    # points well updated
+    assert int([c for c in clubs if c['name'] == valid_club['name']][0]['points']) == club_initial_points - int(places)
