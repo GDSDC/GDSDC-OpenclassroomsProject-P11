@@ -155,3 +155,36 @@ def test_places_correctly_deducted_from_competition(client, new_club_with_20_poi
     # places well deducted
     assert int([c for c in competitions if c['name'] == valid_competition['name']][0]['numberOfPlaces']) \
            == competition_initial_number_of_places - int(places)
+
+
+def test_error_message_when_booking_past_competition(client, valid_club, new_past_competition):
+    """Function that tests if we receive an error message 400 when purchasing places for a past competition"""
+
+    # GIVEN
+    # a club and a past competition
+    club = valid_club
+    past_competition = new_past_competition
+
+    # WHEN
+    # access booking page
+    response = client.get(f"/book/{past_competition['name']}/{club['name']}")
+
+    # THEN
+    # error response status
+    assert response.status_code == 400
+
+def test_error_message_when_booking_future_competition(client, valid_club, new_future_competition):
+    """Function that tests if we receive a valid message 200 when purchasing places for a future competition"""
+
+    # GIVEN
+    # a club and a past competition
+    club = valid_club
+    future_competition = new_future_competition
+
+    # WHEN
+    # access booking page
+    response = client.get(f"/book/{future_competition['name']}/{club['name']}")
+
+    # THEN
+    # valid response status
+    assert response.status_code == 200
