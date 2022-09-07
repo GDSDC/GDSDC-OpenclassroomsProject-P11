@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime, timedelta
 from random import choice
 from server import app, loadClubs, loadCompetitions, clubs, competitions
 
@@ -33,3 +34,24 @@ def new_club_with_20_points():
 @pytest.fixture
 def valid_competition():
     return choice(competitions)
+
+
+@pytest.fixture
+def new_past_competition():
+    new_competition = {
+        "name": "Winter Festival",
+        "date": (datetime.now() - timedelta(days=10)).strftime("%Y-%m-%d %H:%M:%S"),
+        "numberOfPlaces": "70"
+    }
+    competitions.append(new_competition)
+    return new_competition
+
+@pytest.fixture
+def new_future_competition():
+    new_competition = {
+        "name": "Autumn Festival",
+        "date": (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d %H:%M:%S"),
+        "numberOfPlaces": "70"
+    }
+    competitions.append(new_competition)
+    return new_competition
