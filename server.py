@@ -84,3 +84,14 @@ def purchasePlaces():
 @app.route('/logout')
 def logout():
     return redirect(url_for('index'))
+
+
+# CUSTOM TEMPLATES FILTERS
+@app.template_filter('to_date')
+def to_date_filer(dateframe):
+    return datetime.fromisoformat(dateframe)
+
+
+@app.template_filter('is_future')
+def is_future_filer(date):
+    return date > datetime.now()
