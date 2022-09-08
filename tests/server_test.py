@@ -202,4 +202,4 @@ def test_clubs_list_when_login(client, valid_club):
 
     # THEN
     assert "Clubs" in str(response.data)
-    assert "current points balance" in str(response.data)
+    assert "Current Points Balance" in str(response.data)
