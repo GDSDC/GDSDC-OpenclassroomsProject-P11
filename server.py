@@ -36,7 +36,7 @@ def showSummary():
         return Response(response="<p>Sorry, that email wasn't found.</p>", status=404)
 
     club = [club for club in clubs if club['email'] == club_email][0]
-    return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions)
+    return render_template('welcome.html', club=club, competitions=competitions)
 
 
 @app.route('/book/<competition>/<club>')
@@ -48,12 +48,12 @@ def book(competition, club):
         # check if competition already done
         if datetime.fromisoformat(foundCompetition['date']) < datetime.now():
             flash(f"Warning : competition {foundCompetition['name']} is closed. Past competition.")
-            return render_template('welcome.html', club=foundClub, clubs=clubs, competitions=competitions), 400
+            return render_template('welcome.html', club=foundClub, competitions=competitions), 400
 
         return render_template('booking.html', club=foundClub, competition=foundCompetition)
     else:
         flash("Something went wrong-please try again")
-        return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions)
+        return render_template('welcome.html', club=club, competitions=competitions)
 
 
 @app.route('/purchasePlaces', methods=['POST'])
@@ -65,17 +65,17 @@ def purchasePlaces():
     # check for 12 places limit of purchase
     if placesRequired > 12:
         flash(f"Warning : you are trying to book more 12 places.")
-        return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions), 400
+        return render_template('welcome.html', club=club, competitions=competitions), 400
 
     # check for available club points
     if placesRequired > int(club['points']):
         flash(f"Warning : you are trying to book more places than available ({club['points']})")
-        return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions), 400
+        return render_template('welcome.html', club=club, competitions=competitions), 400
 
     competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
     club['points'] = int(club['points']) - placesRequired
     flash(f'Great-booking complete! You just booked {placesRequired} places for competition "{competition["name"]}"!')
-    return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions)
+    return render_template('welcome.html', club=club, competitions=competitions)
 
 
 @app.route('/showClubsSummary')
