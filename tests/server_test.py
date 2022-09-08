@@ -35,19 +35,20 @@ def test_known_email_login(client, valid_club):
     assert response.status_code == 200
 
 
-def test_error_status_when_purchase_more_than_available(client, valid_club, valid_competition):
+def test_error_status_when_purchase_more_than_available(client, new_club_with_5_points, valid_competition):
     """Function that tests if we receive an error message 400 when purchasing more than available points of the club"""
 
     # GIVEN
     # a club and a competition
-    club = valid_club
+    club = new_club_with_5_points
     competition = valid_competition
+    places = '10'
 
     # WHEN
     # purchasing more places than available points
     response = client.post('/purchasePlaces', data={'club': club['name'],
                                                     'competition': competition['name'],
-                                                    'places': str(int(club['points']) + 5)})
+                                                    'places': places})
 
     # THEN
     # error response status

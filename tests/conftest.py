@@ -32,6 +32,17 @@ def new_club_with_20_points():
 
 
 @pytest.fixture
+def new_club_with_5_points():
+    new_club = {
+        "name": "New Club 5 points",
+        "email": "test2@test.co",
+        "points": "5"
+    }
+    clubs.append(new_club)
+    return new_club
+
+
+@pytest.fixture
 def valid_competition():
     return choice(competitions)
 
@@ -45,6 +56,7 @@ def new_past_competition():
     }
     competitions.append(new_competition)
     return new_competition
+
 
 @pytest.fixture
 def new_future_competition():
