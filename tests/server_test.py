@@ -188,3 +188,18 @@ def test_error_message_when_booking_future_competition(client, valid_club, new_f
     # THEN
     # valid response status
     assert response.status_code == 200
+
+def test_clubs_list_when_login(client, valid_club):
+    """Function that check if user can see clubs lists when login"""
+
+    # GIVEN
+    # a valid club email
+    known_email = valid_club['email']
+
+    # WHEN
+    # login
+    response = client.post('/showSummary', data={'email': known_email})
+
+    # THEN
+    assert "Clubs" in str(response.data)
+    assert "Current Points Balance" in str(response.data)
