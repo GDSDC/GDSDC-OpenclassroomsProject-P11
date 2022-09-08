@@ -1,4 +1,3 @@
-from random import choice
 from uuid import uuid4
 
 from server import clubs, competitions

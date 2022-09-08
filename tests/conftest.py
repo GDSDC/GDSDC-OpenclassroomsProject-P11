@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime, timedelta
 from random import choice
-from server import app, loadClubs, loadCompetitions, clubs, competitions
+from server import app, clubs, competitions
 
 
 @pytest.fixture
