@@ -3,7 +3,7 @@ from uuid import uuid4
 from server import clubs, competitions
 
 
-# ------- FUNCTIONAL TESTS ------------------
+# ------- UNIT TESTS ------------------
 def test_unknown_email_login(client):
     """Function that tests login of an unknown email"""
 
@@ -175,11 +175,11 @@ def test_error_message_when_booking_past_competition(client, valid_club, new_pas
     assert response.status_code == 400
 
 
-def test_error_message_when_booking_future_competition(client, valid_club, new_future_competition):
+def test_valid_message_when_booking_future_competition(client, valid_club, new_future_competition):
     """Function that tests if we receive a valid message 200 when purchasing places for a future competition"""
 
     # GIVEN
-    # a club and a past competition
+    # a club and a future competition
     club = valid_club
     future_competition = new_future_competition
 
