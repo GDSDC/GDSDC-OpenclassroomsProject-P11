@@ -49,7 +49,7 @@ Project
 │
 ├── tests : répertoire contenant les tests de notre application       \
 │   ├── integration_tests                                              \
-│   ├── unit_tests                                                      \__ tests4 et performances
+│   ├── unit_tests                                                      \__ tests et performances
 │   ├── conftest.py : fichier de configuration des tests (fixtures)     /
 ├── locustfile.py : tests de performances                              /
 │
