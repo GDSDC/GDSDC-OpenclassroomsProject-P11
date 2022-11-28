@@ -30,6 +30,7 @@ Güdlft est une société qui a créé une plateforme numérique pour coordonner
 ## Technologies Utilisées
 - [Python3](https://www.python.org/)
 - [Flask](https://flask.palletsprojects.com/)
+- [HTML](https://developer.mozilla.org/fr/docs/Web/HTML)
 - [Pytest](https://docs.pytest.org/)
 - [Coverage](https://coverage.readthedocs.io/)
 - [Locust](https://locust.io/)
