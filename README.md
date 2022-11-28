@@ -1,5 +1,5 @@
 <h3 align="center">
-    <img alt="Logo" title="#logo" width="250px" src="/assets/16007798203635_P9.png">
+    <img alt="Logo" title="#logo" width="118px" src="/assets/16007798203635_P9.png">
     <br>
 </h3>
 
