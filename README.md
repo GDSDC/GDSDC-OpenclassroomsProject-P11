@@ -67,7 +67,7 @@ git clone https://github.com/GDSDC/OpenclassroomsProject-P11.git
 
 Accédez au répertoire cloné.
 ```bash
-cd OC_P11_Güdlft
+cd OC_P11_Gudlft
 ```
 
 ### 2. Création d'un environnement virtuel 
