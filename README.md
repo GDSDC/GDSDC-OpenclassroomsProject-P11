@@ -1,51 +1,107 @@
-# gudlift-registration
-
-1. Why
-
-
-    This is a proof of concept (POC) project to show a light-weight version of our competition booking platform. The aim is the keep things as light as possible, and use feedback from the users to iterate.
-
-2. Getting Started
-
-    This project uses the following technologies:
-
-    * Python v3.x+
-
-    * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-
-        Whereas Django does a lot of things for us out of the box, Flask allows us to add only what we need. 
-     
-
-    * [Virtual environment](https://virtualenv.pypa.io/en/stable/installation.html)
-
-        This ensures you'll be able to install the correct packages without interfering with Python on your machine.
-
-        Before you begin, please ensure you have this installed globally. 
+<h3 align="center">
+    <img alt="Logo" title="#logo" src="16007798203635_P9.png">
+    <br>
+</h3>
 
 
-3. Installation
+# OpenClassrooms Projet P11
 
-    - After cloning, change into the directory and type <code>virtualenv .</code>. This will then set up a a virtual python environment within that directory.
+- [Objectif](#obj)
+- [Technologies](#techs)
+- [Requirements](#reqs)
+- [Architecture](#architecture)
+- [Configuration locale](#localconfig)
+- [Compétences](#competences)
 
-    - Next, type <code>source bin/activate</code>. You should see that your command prompt has changed to the name of the folder. This means that you can install packages in here without affecting affecting files outside. To deactivate, type <code>deactivate</code>
+<a id="obj"></a>
+## Objectif
 
-    - Rather than hunting around for the packages you need, you can install in one step. Type <code>pip install -r requirements.txt</code>. This will install all the packages listed in the respective file. If you install a package, make sure others know by updating the requirements.txt file. An easy way to do this is <code>pip freeze > requirements.txt</code>
+Güdlft est une société qui a créé une plateforme numérique pour coordonner les compétitions de force (deadlifting, strongman) en Amérique du Nord et en Australie. L'objectif de ce projet est de créer une version plus légère (et moins coûteuse) de leur plateforme actuelle pour les organisateurs régionaux (repository GitHub : [gudlift-registration](https://github.com/OpenClassrooms-Student-Center/Python_Testing)). L'objectif de l'application est de rationaliser la gestion des compétitions entre les clubs (hébergement, inscriptions, frais et administration).
 
-    - Flask requires that you set an environmental variable to the python file. However you do that, you'll want to set the file to be <code>server.py</code>. Check [here](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application) for more details
+<a id="techs"></a>
+## Technologies Utilisées
+- [Python3](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/)
+- [HTML](https://developer.mozilla.org/fr/docs/Web/HTML)
+- [Pytest](https://docs.pytest.org/)
+- [Coverage](https://coverage.readthedocs.io/)
+- [Locust](https://locust.io/)
 
-    - You should now be ready to test the application. In the directory, type either <code>flask run</code> or <code>python -m flask run</code>. The app should respond with an address you should be able to go to using your browser.
+<a id="reqs"></a>
+## Requirements
+- flask
+- pytest
+- coverage
+- locust
 
-4. Current Setup
+<a id="architecture"></a>
+## Architecture et répertoires
+```
+Project
+├── templates              \
+├── clubs.json              \__ application Flask
+├── competitions.json       /
+├── server.py              /
+│
+├── tests : répertoire contenant les tests de notre application       \
+│   ├── test_integrations.py                                              \
+│   ├── tests_unit.py                                                      \__ tests et performances
+│   ├── conftest.py : fichier de configuration des tests (fixtures)     /
+├── locustfile.py : tests de performances                              /
+│
+|── requirements.txt
+|── README.md
+```
 
-    The app is powered by [JSON files](https://www.tutorialspoint.com/json/json_quick_guide.htm). This is to get around having a DB until we actually need one. The main ones are:
-     
-    * competitions.json - list of competitions
-    * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
+<a id="localconfig"></a>
+## Configuration locale
+## Installation
 
-5. Testing
+### 1. Récupération du projet sur votre machine locale
 
-    You are free to use whatever testing framework you like-the main thing is that you can show what tests you are using.
+Clonez le repository sur votre machine.
 
-    We also like to show how well we're testing, so there's a module called 
-    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
+```bash
+git clone https://github.com/GDSDC/OpenclassroomsProject-P11.git
+```
 
+Accédez au répertoire cloné.
+```bash
+cd OC_P11_Güdlft
+```
+
+### 2. Création d'un environnement virtuel 
+Créez l'environnement virtuel env.
+```bash
+python3 -m venv venv
+```
+
+### 3. Activation et installation de votre environnement virtuel 
+
+Activez l'environnement virtuel venv .
+```bash
+source env/bin/activate
+```
+
+Installez les dépendances du projet dans requirements.txt à l'aide de commande:
+```bash
+pip install -r requirements.txt
+```
+
+## Utilisation
+
+Renseignez l'application flask en tant que variable d'environnement.
+```bash
+export FLASK_APP=server.py
+```
+Démarrez le serveur local.
+```bash
+python -m flask run
+```
+
+<a id="competences"></a>
+## Compétences acquises
+- Configurer un environnement Python
+- Gérer les erreurs et les exceptions en Python
+- Implémentez une suite de tests Python
+- Debugger le code d’une application Python
