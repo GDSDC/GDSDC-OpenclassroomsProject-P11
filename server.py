@@ -16,6 +16,7 @@ def loadCompetitions():
 
 app = Flask(__name__)
 app.secret_key = 'something_special'
+app.debug = True
 
 competitions = loadCompetitions()
 clubs = loadClubs()
@@ -57,3 +58,8 @@ def purchasePlaces():
 @app.route('/logout')
 def logout():
     return redirect(url_for('index'))
+
+
+# Correction 1: code below was missing --> server couldn't be launched
+if __name__ == "__main__":
+    app.run()
